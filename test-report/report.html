@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Test Report — template-umkm-2</title>
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f8fafc; color: #1e293b; margin: 0; padding: 32px; }
+  h1 { font-size: 24px; font-weight: 800; color: #0f172a; margin-bottom: 4px; }
+  .subtitle { color: #64748b; margin-bottom: 32px; }
+  .summary { display: flex; gap: 16px; margin-bottom: 32px; }
+  .stat { background: white; border-radius: 12px; padding: 20px 28px; border: 1px solid #e2e8f0; }
+  .stat-val { font-size: 36px; font-weight: 800; line-height: 1; }
+  .stat-label { color: #64748b; font-size: 14px; margin-top: 4px; }
+  .pass { color: #16a34a; } .fail { color: #dc2626; } .pct { color: #7c3aed; }
+  .items { display: flex; flex-direction: column; gap: 6px; }
+  .item { display: flex; align-items: center; gap-10px; padding: 10px 14px; background: white; border-radius: 8px; border: 1px solid #e2e8f0; font-size: 14px; }
+  .item.ok { border-left: 3px solid #16a34a; }
+  .item.err { border-left: 3px solid #dc2626; background: #fef2f2; }
+  .icon { width: 20px; flex-shrink: 0; }
+  .label { flex: 1; font-weight: 500; }
+  .detail { color: #64748b; font-size: 12px; }
+  section { margin-bottom: 32px; }
+  h2 { font-size: 16px; font-weight: 700; color: #475569; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px; }
+</style>
+</head>
+<body>
+<h1>🧪 Test Report — template-umkm-2</h1>
+<p class="subtitle">Generated: 26/4/2026, 13.17.41</p>
+<div class="summary">
+  <div class="stat"><div class="stat-val">87</div><div class="stat-label">Total Tests</div></div>
+  <div class="stat"><div class="stat-val pass">87</div><div class="stat-label">Passed</div></div>
+  <div class="stat"><div class="stat-val fail">0</div><div class="stat-label">Failed</div></div>
+  <div class="stat"><div class="stat-val pct">100%</div><div class="stat-label">Pass Rate</div></div>
+</div>
+<div class="items">
+
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">API GET /umkm</span>
+    <span class="detail">4 items</span>
+  </div>
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">API GET /umkm?status=ALL</span>
+    <span class="detail">4 items</span>
+  </div>
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">API GET /products</span>
+    <span class="detail">5 items</span>
+  </div>
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">API GET /products?status=ALL</span>
+    <span class="detail">6 items</span>
+  </div>
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">API GET /stories</span>
+    <span class="detail">2 items</span>
+  </div>
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">API GET /events</span>
+    <span class="detail">2 items</span>
+  </div>
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">API GET /promos</span>
+    <span class="detail">2 items</span>
+  </div>
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">API GET /categories</span>
+    <span class="detail">4 items</span>
+  </div>
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">API GET /regions</span>
+    <span class="detail">3 items</span>
+  </div>
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">API GET /umkm (for slug test)</span>
+    <span class="detail">4 items</span>
+  </div>
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">API GET /umkm/kedai-harian-susi</span>
+    <span class="detail">0 items</span>
+  </div>
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">Homepage renders</span>
+    <span class="detail">has hero: true</span>
+  </div>
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">Homepage — Products section</span>
+    
+  </div>
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">Homepage — UMKM section</span>
+    
+  </div>
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">Homepage — Stories section</span>
+    
+  </div>
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">Homepage — PromoSlider</span>
+    <span class="detail">visible</span>
+  </div>
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">Katalog page</span>
+    
+  </div>
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">Katalog — Shows products with prices</span>
+    
+  </div>
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">Katalog — Does NOT show UMKM directory</span>
+    
+  </div>
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">UMKM Detail (/katalog/kedai-harian-susi)</span>
+    
+  </div>
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">Cerita page</span>
+    
+  </div>
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">API stories for detail test</span>
+    <span class="detail">2 items</span>
+  </div>
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">Cerita Detail (/cerita/batik-digital-generasi-muda)</span>
+    
+  </div>
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">Event page</span>
+    
+  </div>
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">Login page</span>
+    
+  </div>
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">Register page</span>
+    
+  </div>
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">Visitor — Login redirects to dashboard</span>
+    <span class="detail">http://localhost:3001/dashboard</span>
+  </div>
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">Visitor — Dashboard loads</span>
+    
+  </div>
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">Visitor — Dashboard shows Register UMKM CTA</span>
+    
+  </div>
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">Visitor — Register UMKM page</span>
+    
+  </div>
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">Visitor — Profile page</span>
+    
+  </div>
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">Visitor — Logout button visible in header</span>
+    
+  </div>
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">Visitor — Logout redirects to homepage</span>
+    <span class="detail">http://localhost:3001/</span>
+  </div>
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">Owner — Dashboard loads</span>
+    
+  </div>
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">Owner — Dashboard shows stats (Produk, Cerita)</span>
+    
+  </div>
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">Owner — Products list page</span>
+    
+  </div>
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">Owner — Add product form</span>
+    
+  </div>
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">Owner — Product form has image upload</span>
+    
+  </div>
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">Owner — Product submission works</span>
+    
+  </div>
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">Owner — Cerita list page</span>
+    
+  </div>
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">Owner — Write cerita form</span>
+    
+  </div>
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">Owner — Promos page</span>
+    
+  </div>
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">Owner — Promos page has "Tambah Promo" button</span>
+    
+  </div>
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">Owner — Promos page correct (no admin buttons for active promos)</span>
+    
+  </div>
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">Owner — WhatsApp Orders page</span>
+    
+  </div>
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">Owner — Profile page</span>
+    
+  </div>
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">Owner — Profile shows UMKM info</span>
+    
+  </div>
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">Owner — Sidebar hides admin-only menu items</span>
+    
+  </div>
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">Admin — Dashboard</span>
+    
+  </div>
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">Admin — Dashboard shows 4 stat cards</span>
+    
+  </div>
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">Admin — UMKM Data page</span>
+    
+  </div>
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">Admin — UMKM detail panel opens</span>
+    
+  </div>
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">Admin — Products page</span>
+    <span class="detail">0 pending product(s)</span>
+  </div>
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">Admin — Cerita management</span>
+    
+  </div>
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">Admin — Event management</span>
+    
+  </div>
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">Admin — Reports page</span>
+    
+  </div>
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">Admin — Reports shows stats</span>
+    
+  </div>
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">Admin — Sidebar hides superadmin-only items</span>
+    
+  </div>
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">Admin — Settings hidden from Admin role</span>
+    
+  </div>
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">Superadmin — Dashboard</span>
+    
+  </div>
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">Superadmin — User Management</span>
+    
+  </div>
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">Superadmin — User list shows roles</span>
+    
+  </div>
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">Superadmin — User list has action buttons</span>
+    
+  </div>
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">Superadmin — Apps Management</span>
+    
+  </div>
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">Superadmin — Homepage Content</span>
+    
+  </div>
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">Superadmin — Homepage Content shows site info</span>
+    
+  </div>
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">Superadmin — Settings</span>
+    
+  </div>
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">Superadmin — Settings shows Feature Flags</span>
+    
+  </div>
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">Superadmin — Promos management</span>
+    
+  </div>
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">Superadmin — Reports</span>
+    
+  </div>
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">Superadmin — Profile</span>
+    
+  </div>
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">WA Order — Katalog shows "Pesan via WA" buttons</span>
+    <span class="detail">5 buttons</span>
+  </div>
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">WA Order — Link has correct format</span>
+    <span class="detail">https://wa.me/628345678901?text=Halo!%20Saya%20tertarik%20de...</span>
+  </div>
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">Register UMKM — Form visible for Visitor</span>
+    
+  </div>
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">Register UMKM — Form has Name and WhatsApp fields</span>
+    
+  </div>
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">Story — Write form loads for UMKM Owner</span>
+    
+  </div>
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">Story — Form has title and content fields</span>
+    
+  </div>
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">Event — Public page no ChunkLoadError</span>
+    
+  </div>
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">Navigation — Homepage → Cerita (client-side nav)</span>
+    
+  </div>
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">Navigation — Cerita → Event (client-side nav)</span>
+    
+  </div>
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">Navigation — Event → Katalog (client-side nav)</span>
+    
+  </div>
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">Auth Guard — Unauthenticated dashboard redirect to login</span>
+    <span class="detail">http://localhost:3001/auth/login</span>
+  </div>
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">RBAC — Visitor cannot access User Management data</span>
+    
+  </div>
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">Design — Dark navy hero section present</span>
+    
+  </div>
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">Design — Violet accent colors present</span>
+    
+  </div>
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">Design — Dark navy sidebar in dashboard</span>
+    
+  </div>
+  <div class="item ok">
+    <span class="icon">✅</span>
+    <span class="label">Design — Logout button in dashboard header</span>
+    
+  </div>
+</div>
+</body>
+</html>

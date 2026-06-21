@@ -1,0 +1,1533 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manual Book — UMKM Digital 2</title>
+<style>
+  :root {
+    --violet: #7C3AED;
+    --violet-light: #EDE9FE;
+    --navy: #080B14;
+    --slate: #1e293b;
+    --muted: #64748b;
+    --border: #e2e8f0;
+    --bg: #f8fafc;
+    --white: #ffffff;
+    --green: #16a34a;
+    --yellow: #d97706;
+    --red: #dc2626;
+    --radius: 12px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--slate); line-height: 1.7; }
+
+  /* ── SIDEBAR TOC ── */
+  #toc {
+    position: fixed; left: 0; top: 0; width: 260px; height: 100vh;
+    background: var(--navy); overflow-y: auto; z-index: 100;
+    padding: 24px 0;
+  }
+  #toc-header { padding: 0 20px 20px; border-bottom: 1px solid rgba(255,255,255,.08); }
+  #toc-header h2 { color: white; font-size: 14px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }
+  #toc-header p  { color: #94a3b8; font-size: 11px; margin-top: 3px; }
+  .toc-section { margin-top: 4px; }
+  .toc-section-label { padding: 12px 20px 4px; font-size: 10px; font-weight: 700; color: #475569; text-transform: uppercase; letter-spacing: .08em; }
+  .toc-link { display: flex; align-items: center; gap: 8px; padding: 7px 20px; color: #94a3b8; text-decoration: none; font-size: 13px; transition: all .15s; border-left: 2px solid transparent; }
+  .toc-link:hover { color: white; background: rgba(255,255,255,.05); border-left-color: var(--violet); }
+  .toc-link.active { color: white; background: rgba(124,58,237,.15); border-left-color: var(--violet); }
+  .toc-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+
+  /* ── MAIN CONTENT ── */
+  main { margin-left: 260px; }
+  .cover {
+    background: linear-gradient(135deg, #080B14 0%, #1e0a3c 60%, #2d1265 100%);
+    padding: 80px 64px; position: relative; overflow: hidden;
+  }
+  .cover::before {
+    content: ''; position: absolute; top: -80px; right: -80px;
+    width: 400px; height: 400px; background: radial-gradient(circle, rgba(124,58,237,.3) 0%, transparent 70%);
+  }
+  .cover-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(124,58,237,.2); border: 1px solid rgba(124,58,237,.4); border-radius: 999px; padding: 4px 14px; color: #c4b5fd; font-size: 12px; font-weight: 600; margin-bottom: 20px; }
+  .cover h1 { color: white; font-size: 48px; font-weight: 900; line-height: 1.1; margin-bottom: 16px; }
+  .cover h1 span { background: linear-gradient(135deg, #a78bfa, #7c3aed); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .cover p { color: #94a3b8; font-size: 18px; max-width: 540px; margin-bottom: 36px; }
+  .cover-meta { display: flex; gap: 32px; }
+  .cover-meta-item { color: #64748b; font-size: 13px; }
+  .cover-meta-item strong { color: #94a3b8; display: block; font-size: 11px; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 3px; }
+
+  .content { padding: 0 64px 80px; }
+
+  /* ── SECTIONS ── */
+  .chapter {
+    margin-top: 56px; padding-top: 56px;
+    border-top: 1px solid var(--border);
+  }
+  .chapter:first-child { border-top: none; }
+  .chapter-label { display: inline-flex; align-items: center; gap: 6px; background: var(--violet-light); color: var(--violet); border-radius: 999px; padding: 3px 12px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 12px; }
+  .chapter h2 { font-size: 30px; font-weight: 800; color: #0f172a; margin-bottom: 8px; }
+  .chapter > p { color: var(--muted); font-size: 15px; max-width: 680px; margin-bottom: 32px; }
+
+  .section { margin-bottom: 40px; }
+  .section h3 { font-size: 20px; font-weight: 700; color: #1e293b; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+  .section h3 .badge-role { font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px; }
+  .section > p { color: var(--muted); font-size: 14px; margin-bottom: 16px; }
+
+  /* ── SCREENSHOT ── */
+  .screenshot {
+    border-radius: var(--radius); overflow: hidden;
+    border: 1px solid var(--border);
+    box-shadow: 0 4px 24px rgba(0,0,0,.08);
+    margin: 20px 0;
+  }
+  .screenshot-label { background: #f1f5f9; padding: 8px 16px; font-size: 12px; color: var(--muted); font-weight: 500; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 6px; }
+  .screenshot-label::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--violet); display: inline-block; }
+  .screenshot img { width: 100%; display: block; }
+
+  /* ── FEATURE LIST ── */
+  .feature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 16px 0; }
+  .feature-card { background: white; border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 18px; }
+  .feature-card h4 { font-size: 13px; font-weight: 700; color: #1e293b; margin-bottom: 6px; }
+  .feature-card ul { list-style: none; }
+  .feature-card ul li { font-size: 13px; color: var(--muted); padding: 2px 0; padding-left: 14px; position: relative; }
+  .feature-card ul li::before { content: '•'; position: absolute; left: 0; color: var(--violet); font-weight: 700; }
+
+  .steps { list-style: none; counter-reset: step; margin: 16px 0; }
+  .steps li { counter-increment: step; display: flex; gap: 14px; margin-bottom: 14px; }
+  .steps li::before { content: counter(step); min-width: 28px; height: 28px; background: var(--violet); color: white; border-radius: 50%; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+  .steps li > div { flex: 1; }
+  .steps li strong { display: block; font-size: 14px; color: #1e293b; }
+  .steps li span { font-size: 13px; color: var(--muted); }
+
+  /* ── ROLE BADGE ── */
+  .role-superadmin { background: #fef3c7; color: #92400e; }
+  .role-admin      { background: #e0f2fe; color: #0369a1; }
+  .role-owner      { background: #dcfce7; color: #166534; }
+  .role-visitor    { background: #f1f5f9; color: #475569; }
+  .role-public     { background: #f5f3ff; color: #6d28d9; }
+
+  /* ── INFO BOX ── */
+  .info-box { border-radius: var(--radius); padding: 14px 18px; margin: 14px 0; font-size: 13px; display: flex; gap: 10px; align-items: flex-start; }
+  .info-box.tip  { background: #f0fdf4; border: 1px solid #bbf7d0; color: #15803d; }
+  .info-box.note { background: #eff6ff; border: 1px solid #bfdbfe; color: #1d4ed8; }
+  .info-box.warn { background: #fffbeb; border: 1px solid #fde68a; color: #92400e; }
+  .info-box-icon { font-size: 16px; line-height: 1.4; flex-shrink: 0; }
+
+  /* ── FIELD TABLE ── */
+  table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 13px; }
+  th { background: #f8fafc; color: #475569; font-weight: 600; text-align: left; padding: 10px 14px; border: 1px solid var(--border); }
+  td { padding: 10px 14px; border: 1px solid var(--border); color: #374151; }
+  td.req { color: var(--red); font-weight: 700; text-align: center; }
+  td.opt { color: var(--muted); text-align: center; }
+  tr:nth-child(even) td { background: #fafafa; }
+
+  /* ── ROLE OVERVIEW BOX ── */
+  .role-overview { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 24px 0; }
+  .role-box { background: white; border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; }
+  .role-box-header { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+  .role-box-icon { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+  .role-box h4 { font-size: 15px; font-weight: 700; color: #1e293b; }
+  .role-box p  { font-size: 12px; color: var(--muted); margin-top: 2px; }
+  .role-box ul { list-style: none; margin-top: 10px; }
+  .role-box ul li { font-size: 12px; color: #374151; padding: 3px 0 3px 14px; position: relative; }
+  .role-box ul li::before { content: '✓'; position: absolute; left: 0; color: var(--green); font-weight: 700; font-size: 11px; }
+
+  /* ── ACCOUNT TABLE ── */
+  .account-table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+  .account-table th { background: var(--navy); color: white; padding: 12px 16px; text-align: left; font-size: 12px; font-weight: 600; }
+  .account-table td { padding: 12px 16px; border-bottom: 1px solid var(--border); font-size: 13px; font-family: monospace; }
+  .account-table tr:last-child td { border-bottom: none; }
+
+  /* ── DIVIDER ── */
+  hr.section-div { border: none; border-top: 1px dashed var(--border); margin: 32px 0; }
+
+  /* ── PRINT ── */
+  @media print {
+    #toc { display: none; }
+    main { margin-left: 0; }
+    .cover { page-break-after: always; }
+    .chapter { page-break-inside: avoid; }
+  }
+
+  @media (max-width: 1100px) {
+    #toc { display: none; }
+    main { margin-left: 0; }
+    .content { padding: 0 24px 60px; }
+    .cover { padding: 48px 24px; }
+    .feature-grid, .role-overview { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════
+     SIDEBAR TABLE OF CONTENTS
+══════════════════════════════ -->
+<nav id="toc">
+  <div id="toc-header">
+    <h2>📗 Manual Book</h2>
+    <p>UMKM Digital 2</p>
+  </div>
+
+  <div class="toc-section">
+    <div class="toc-section-label">Pengantar</div>
+    <a class="toc-link" href="#overview"><span class="toc-dot" style="background:#7c3aed"></span>Gambaran Umum</a>
+    <a class="toc-link" href="#accounts"><span class="toc-dot" style="background:#7c3aed"></span>Akun Test</a>
+    <a class="toc-link" href="#roles"><span class="toc-dot" style="background:#7c3aed"></span>Role &amp; Hak Akses</a>
+  </div>
+
+  <div class="toc-section">
+    <div class="toc-section-label">Halaman Publik</div>
+    <a class="toc-link" href="#pub-home"><span class="toc-dot" style="background:#6366f1"></span>Beranda</a>
+    <a class="toc-link" href="#pub-katalog"><span class="toc-dot" style="background:#6366f1"></span>Katalog Produk</a>
+    <a class="toc-link" href="#pub-umkm-detail"><span class="toc-dot" style="background:#6366f1"></span>Detail UMKM</a>
+    <a class="toc-link" href="#pub-cerita"><span class="toc-dot" style="background:#6366f1"></span>Cerita UMKM</a>
+    <a class="toc-link" href="#pub-event"><span class="toc-dot" style="background:#6366f1"></span>Event</a>
+    <a class="toc-link" href="#pub-auth"><span class="toc-dot" style="background:#6366f1"></span>Login &amp; Register</a>
+  </div>
+
+  <div class="toc-section">
+    <div class="toc-section-label">Role: Visitor</div>
+    <a class="toc-link" href="#vis-dashboard"><span class="toc-dot" style="background:#64748b"></span>Dashboard</a>
+    <a class="toc-link" href="#vis-register-umkm"><span class="toc-dot" style="background:#64748b"></span>Daftar UMKM</a>
+    <a class="toc-link" href="#vis-profile"><span class="toc-dot" style="background:#64748b"></span>Profil</a>
+  </div>
+
+  <div class="toc-section">
+    <div class="toc-section-label">Role: UMKM Owner</div>
+    <a class="toc-link" href="#own-dashboard"><span class="toc-dot" style="background:#16a34a"></span>Dashboard</a>
+    <a class="toc-link" href="#own-products"><span class="toc-dot" style="background:#16a34a"></span>Produk</a>
+    <a class="toc-link" href="#own-cerita"><span class="toc-dot" style="background:#16a34a"></span>Cerita</a>
+    <a class="toc-link" href="#own-promos"><span class="toc-dot" style="background:#16a34a"></span>Promo Slider</a>
+    <a class="toc-link" href="#own-wa"><span class="toc-dot" style="background:#16a34a"></span>WA Orders</a>
+    <a class="toc-link" href="#own-profile"><span class="toc-dot" style="background:#16a34a"></span>Profil &amp; UMKM</a>
+  </div>
+
+  <div class="toc-section">
+    <div class="toc-section-label">Role: Admin</div>
+    <a class="toc-link" href="#adm-dashboard"><span class="toc-dot" style="background:#0369a1"></span>Dashboard</a>
+    <a class="toc-link" href="#adm-umkm"><span class="toc-dot" style="background:#0369a1"></span>Data UMKM</a>
+    <a class="toc-link" href="#adm-products"><span class="toc-dot" style="background:#0369a1"></span>Produk</a>
+    <a class="toc-link" href="#adm-cerita"><span class="toc-dot" style="background:#0369a1"></span>Cerita</a>
+    <a class="toc-link" href="#adm-event"><span class="toc-dot" style="background:#0369a1"></span>Event</a>
+    <a class="toc-link" href="#adm-promos"><span class="toc-dot" style="background:#0369a1"></span>Promo</a>
+    <a class="toc-link" href="#adm-reports"><span class="toc-dot" style="background:#0369a1"></span>Laporan</a>
+  </div>
+
+  <div class="toc-section">
+    <div class="toc-section-label">Role: Superadmin</div>
+    <a class="toc-link" href="#sa-users"><span class="toc-dot" style="background:#b45309"></span>User Management</a>
+    <a class="toc-link" href="#sa-apps"><span class="toc-dot" style="background:#b45309"></span>Apps Management</a>
+    <a class="toc-link" href="#sa-homepage"><span class="toc-dot" style="background:#b45309"></span>Homepage Content</a>
+    <a class="toc-link" href="#sa-settings"><span class="toc-dot" style="background:#b45309"></span>Settings</a>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════
+     MAIN CONTENT
+══════════════════════════════ -->
+<main>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-badge">📗 Manual Book</div>
+  <h1>Platform <span>UMKM Digital 2</span><br>Panduan Lengkap Pengguna</h1>
+  <p>Panduan lengkap penggunaan seluruh fitur platform untuk semua role: Visitor, UMKM Owner, Admin, dan Superadmin.</p>
+  <div class="cover-meta">
+    <div class="cover-meta-item"><strong>Versi</strong>1.0.0</div>
+    <div class="cover-meta-item"><strong>Platform</strong>Next.js 14 + Prisma</div>
+    <div class="cover-meta-item"><strong>Port Default</strong>localhost:3001</div>
+    <div class="cover-meta-item"><strong>Jumlah Role</strong>4 Role</div>
+  </div>
+</div>
+
+<div class="content">
+
+<!-- ══════════════════════ GAMBARAN UMUM ══════════════════════ -->
+<div class="chapter" id="overview">
+  <div class="chapter-label">📌 Pengantar</div>
+  <h2>Gambaran Umum Platform</h2>
+  <p>UMKM Digital 2 adalah platform ekosistem digital untuk UMKM Indonesia. Platform ini memungkinkan pemilik UMKM mendaftarkan bisnis, mengelola produk, berbagi cerita, dan menerima pesanan melalui WhatsApp — dengan sistem persetujuan berbasis role.</p>
+
+  <div class="feature-grid">
+    <div class="feature-card">
+      <h4>🌐 Halaman Publik</h4>
+      <ul>
+        <li>Beranda dengan hero &amp; promo slider</li>
+        <li>Katalog produk + pemesanan via WA</li>
+        <li>Halaman detail UMKM</li>
+        <li>Blog cerita sukses UMKM</li>
+        <li>Listing &amp; detail event</li>
+        <li>Halaman login &amp; registrasi</li>
+      </ul>
+    </div>
+    <div class="feature-card">
+      <h4>🔐 Sistem Keamanan</h4>
+      <ul>
+        <li>Autentikasi JWT via NextAuth.js</li>
+        <li>4 level role berbeda</li>
+        <li>Sidebar menu dinamis per role</li>
+        <li>Guard redirect ke login jika belum login</li>
+        <li>Approval workflow untuk konten baru</li>
+      </ul>
+    </div>
+    <div class="feature-card">
+      <h4>📦 Fitur UMKM Owner</h4>
+      <ul>
+        <li>Manajemen produk + upload foto</li>
+        <li>Penulisan cerita dengan rich editor</li>
+        <li>Pengajuan banner promo</li>
+        <li>Riwayat pesanan WhatsApp</li>
+        <li>Profil UMKM &amp; kontak</li>
+      </ul>
+    </div>
+    <div class="feature-card">
+      <h4>⚙️ Fitur Admin/Superadmin</h4>
+      <ul>
+        <li>Approval UMKM, produk, cerita, event</li>
+        <li>User management &amp; role assignment</li>
+        <li>Manajemen aplikasi SSO</li>
+        <li>Edit konten halaman beranda</li>
+        <li>Feature flags &amp; pengaturan situs</li>
+        <li>Laporan statistik lengkap</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════ AKUN TEST ══════════════════════ -->
+<div class="chapter" id="accounts">
+  <div class="chapter-label">🔑 Akun Test</div>
+  <h2>Akun Demo untuk Testing</h2>
+  <p>Gunakan akun berikut untuk mencoba setiap role. Semua akun ini tersedia setelah menjalankan seed database.</p>
+
+  <table class="account-table">
+    <thead>
+      <tr>
+        <th>Role</th>
+        <th>Email</th>
+        <th>Password</th>
+        <th>Keterangan</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span style="background:#fef3c7;color:#92400e;padding:2px 8px;border-radius:6px;font-size:11px;font-weight:700;font-family:sans-serif">SUPERADMIN</span></td>
+        <td>superadmin@umkm2.id</td>
+        <td>admin123</td>
+        <td style="font-family:sans-serif;color:#64748b">Akses penuh semua fitur</td>
+      </tr>
+      <tr>
+        <td><span style="background:#e0f2fe;color:#0369a1;padding:2px 8px;border-radius:6px;font-size:11px;font-weight:700;font-family:sans-serif">ADMIN</span></td>
+        <td>admin@umkm2.id</td>
+        <td>admin123</td>
+        <td style="font-family:sans-serif;color:#64748b">Kelola UMKM, produk, konten</td>
+      </tr>
+      <tr>
+        <td><span style="background:#dcfce7;color:#166534;padding:2px 8px;border-radius:6px;font-size:11px;font-weight:700;font-family:sans-serif">UMKM OWNER</span></td>
+        <td>rendang@umkm2.id</td>
+        <td>owner123</td>
+        <td style="font-family:sans-serif;color:#64748b">Rendang Bundo Kanduang</td>
+      </tr>
+      <tr>
+        <td><span style="background:#dcfce7;color:#166534;padding:2px 8px;border-radius:6px;font-size:11px;font-weight:700;font-family:sans-serif">UMKM OWNER</span></td>
+        <td>batik@umkm2.id</td>
+        <td>owner123</td>
+        <td style="font-family:sans-serif;color:#64748b">Batik Cirebon Indah</td>
+      </tr>
+      <tr>
+        <td><span style="background:#dcfce7;color:#166534;padding:2px 8px;border-radius:6px;font-size:11px;font-weight:700;font-family:sans-serif">UMKM OWNER</span></td>
+        <td>kopi@umkm2.id</td>
+        <td>owner123</td>
+        <td style="font-family:sans-serif;color:#64748b">Kopi Riau Premium</td>
+      </tr>
+      <tr>
+        <td><span style="background:#f1f5f9;color:#475569;padding:2px 8px;border-radius:6px;font-size:11px;font-weight:700;font-family:sans-serif">VISITOR</span></td>
+        <td>visitor@umkm2.id</td>
+        <td>visitor123</td>
+        <td style="font-family:sans-serif;color:#64748b">Pengunjung terdaftar</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="info-box note">
+    <span class="info-box-icon">💡</span>
+    <span>Untuk mereset data demo, jalankan: <code style="background:#dbeafe;padding:1px 6px;border-radius:4px">npx tsx prisma/seed.ts</code> dari direktori proyek.</span>
+  </div>
+</div>
+
+<!-- ══════════════════════ ROLE & HAK AKSES ══════════════════════ -->
+<div class="chapter" id="roles">
+  <div class="chapter-label">👥 Role</div>
+  <h2>Role &amp; Hak Akses</h2>
+  <p>Platform memiliki 4 role dengan hak akses yang berbeda. Menu sidebar otomatis menyesuaikan dengan role pengguna yang sedang login.</p>
+
+  <div class="role-overview">
+    <div class="role-box">
+      <div class="role-box-header">
+        <div class="role-box-icon" style="background:#fef3c7">👑</div>
+        <div><h4>Superadmin</h4><p>Akses penuh seluruh sistem</p></div>
+      </div>
+      <ul>
+        <li>Semua fitur Admin</li>
+        <li>Manajemen user &amp; role</li>
+        <li>Manajemen aplikasi SSO</li>
+        <li>Edit konten halaman beranda</li>
+        <li>Pengaturan situs &amp; feature flags</li>
+      </ul>
+    </div>
+    <div class="role-box">
+      <div class="role-box-header">
+        <div class="role-box-icon" style="background:#e0f2fe">🛡️</div>
+        <div><h4>Admin</h4><p>Moderasi konten &amp; UMKM</p></div>
+      </div>
+      <ul>
+        <li>Approve/reject UMKM, produk, cerita, event</li>
+        <li>Kelola promo slider</li>
+        <li>Lihat laporan statistik</li>
+        <li>Lihat data WhatsApp orders</li>
+        <li>TIDAK bisa kelola user &amp; settings</li>
+      </ul>
+    </div>
+    <div class="role-box">
+      <div class="role-box-header">
+        <div class="role-box-icon" style="background:#dcfce7">🏪</div>
+        <div><h4>UMKM Owner</h4><p>Kelola bisnis &amp; konten sendiri</p></div>
+      </div>
+      <ul>
+        <li>Tambah &amp; kelola produk sendiri</li>
+        <li>Tulis &amp; kelola cerita</li>
+        <li>Ajukan banner promo</li>
+        <li>Lihat riwayat pesanan WA</li>
+        <li>Edit profil &amp; data UMKM</li>
+      </ul>
+    </div>
+    <div class="role-box">
+      <div class="role-box-header">
+        <div class="role-box-icon" style="background:#f1f5f9">👤</div>
+        <div><h4>Visitor</h4><p>Pengguna terdaftar biasa</p></div>
+      </div>
+      <ul>
+        <li>Akses semua halaman publik</li>
+        <li>Dashboard dasar</li>
+        <li>Daftarkan UMKM (menunggu approval)</li>
+        <li>Edit profil akun</li>
+        <li>TIDAK bisa kelola produk/konten</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     BAGIAN 2: HALAMAN PUBLIK
+══════════════════════════════════════════════════════ -->
+
+<div class="chapter" id="pub-home">
+  <div class="chapter-label">🌐 Halaman Publik</div>
+  <h2>Beranda (Homepage)</h2>
+  <p>Halaman utama yang dapat diakses oleh semua orang tanpa login. Menampilkan hero section, promo slider, produk pilihan, daftar UMKM, cerita terbaru, dan event mendatang.</p>
+
+  <div class="screenshot">
+    <div class="screenshot-label">Beranda — Hero Section &amp; Promo Slider</div>
+    <img src="test-report/2a-homepage.png" alt="Homepage">
+  </div>
+
+  <div class="section">
+    <h3>Komponen Beranda</h3>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <h4>🎯 Hero Section</h4>
+        <ul>
+          <li>Tagline utama platform</li>
+          <li>Tombol "Mulai Gratis" → halaman register</li>
+          <li>Tombol "Lihat Katalog" → /katalog</li>
+          <li>Statistik: total UMKM, produk, pengguna</li>
+        </ul>
+      </div>
+      <div class="feature-card">
+        <h4>🎠 Promo Slider</h4>
+        <ul>
+          <li>Banner promo yang sudah disetujui admin</li>
+          <li>Auto-rotate setiap 4 detik</li>
+          <li>Berhenti saat di-hover</li>
+          <li>Navigasi panah kiri/kanan</li>
+          <li>Indikator dot di bawah</li>
+        </ul>
+      </div>
+      <div class="feature-card">
+        <h4>🛍️ Produk Pilihan</h4>
+        <ul>
+          <li>Menampilkan 6 produk terbaru yang approved</li>
+          <li>Foto produk, nama, harga</li>
+          <li>Badge kategori &amp; nama UMKM</li>
+          <li>Tombol "Pesan via WA"</li>
+        </ul>
+      </div>
+      <div class="feature-card">
+        <h4>🏪 UMKM Terdaftar</h4>
+        <ul>
+          <li>6 UMKM terbaru yang approved</li>
+          <li>Logo/avatar, nama, deskripsi singkat</li>
+          <li>Jumlah produk &amp; wilayah</li>
+          <li>Link ke halaman detail UMKM</li>
+        </ul>
+      </div>
+      <div class="feature-card">
+        <h4>📖 Cerita UMKM</h4>
+        <ul>
+          <li>3 cerita terbaru yang approved</li>
+          <li>Gambar cover, judul, excerpt</li>
+          <li>Nama UMKM penulis</li>
+          <li>Link ke halaman detail cerita</li>
+        </ul>
+      </div>
+      <div class="feature-card">
+        <h4>📅 Event Mendatang</h4>
+        <ul>
+          <li>3 event terdekat yang approved</li>
+          <li>Tanggal, lokasi (online/offline)</li>
+          <li>Jumlah peserta</li>
+          <li>Link ke detail event</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- KATALOG -->
+<div class="chapter" id="pub-katalog">
+  <div class="chapter-label">🌐 Halaman Publik</div>
+  <h2>Katalog Produk</h2>
+  <p>Halaman katalog menampilkan semua produk UMKM yang telah disetujui. Pengunjung dapat langsung memesan produk melalui WhatsApp.</p>
+
+  <div class="screenshot">
+    <div class="screenshot-label">Katalog Produk — /katalog</div>
+    <img src="test-report/2b-katalog.png" alt="Katalog">
+  </div>
+
+  <div class="section">
+    <h3>Fitur Katalog</h3>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <h4>📦 Tampilan Produk</h4>
+        <ul>
+          <li>Foto produk (gambar pertama)</li>
+          <li>Badge kategori (Kuliner, Fashion, dll)</li>
+          <li>Nama produk (max 2 baris)</li>
+          <li>Harga dalam format Rupiah</li>
+          <li>Nama &amp; logo UMKM</li>
+          <li>Wilayah UMKM</li>
+        </ul>
+      </div>
+      <div class="feature-card">
+        <h4>📱 Pemesanan WhatsApp</h4>
+        <ul>
+          <li>Tombol "Pesan via WA" (hijau)</li>
+          <li>Pesan otomatis: nama produk + harga</li>
+          <li>Format: wa.me/628xxx?text=...</li>
+          <li>Jika tidak ada WA → tombol "Lihat UMKM"</li>
+        </ul>
+      </div>
+    </div>
+    <div class="info-box tip">
+      <span class="info-box-icon">✅</span>
+      <span>Hanya produk dengan status <strong>APPROVED</strong> yang tampil di katalog publik.</span>
+    </div>
+  </div>
+</div>
+
+<!-- DETAIL UMKM -->
+<div class="chapter" id="pub-umkm-detail">
+  <div class="chapter-label">🌐 Halaman Publik</div>
+  <h2>Halaman Detail UMKM</h2>
+  <p>Setiap UMKM memiliki halaman profil publik di URL <code>/katalog/[slug]</code> yang menampilkan informasi lengkap dan produk-produknya.</p>
+
+  <div class="screenshot">
+    <div class="screenshot-label">Detail UMKM — /katalog/[slug]</div>
+    <img src="test-report/2c-katalog-detail.png" alt="Detail UMKM">
+  </div>
+
+  <div class="section">
+    <h3>Informasi yang Ditampilkan</h3>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <h4>🏪 Profil UMKM</h4>
+        <ul>
+          <li>Avatar dengan inisial nama UMKM</li>
+          <li>Badge "Terverifikasi"</li>
+          <li>Nama UMKM (heading besar)</li>
+          <li>Wilayah &amp; kategori</li>
+          <li>Jumlah produk aktif</li>
+          <li>Deskripsi UMKM</li>
+        </ul>
+      </div>
+      <div class="feature-card">
+        <h4>📞 Tombol Kontak</h4>
+        <ul>
+          <li>WhatsApp (jika tersedia)</li>
+          <li>Telepon (jika tersedia)</li>
+          <li>Website (jika tersedia, buka tab baru)</li>
+        </ul>
+      </div>
+    </div>
+    <p style="color:#64748b;font-size:14px;margin-top:8px">Di bawah profil terdapat grid semua produk approved milik UMKM ini, lengkap dengan tombol "Pesan via WA".</p>
+  </div>
+</div>
+
+<!-- CERITA -->
+<div class="chapter" id="pub-cerita">
+  <div class="chapter-label">🌐 Halaman Publik</div>
+  <h2>Cerita UMKM</h2>
+  <p>Halaman blog berisi kisah sukses dan inspirasi dari para pelaku UMKM. Setiap cerita memiliki halaman detail tersendiri.</p>
+
+  <div class="screenshot">
+    <div class="screenshot-label">Daftar Cerita — /cerita</div>
+    <img src="test-report/2d-cerita.png" alt="Cerita">
+  </div>
+
+  <div class="screenshot">
+    <div class="screenshot-label">Detail Cerita — /cerita/[slug]</div>
+    <img src="test-report/2e-cerita-detail.png" alt="Detail Cerita">
+  </div>
+
+  <div class="section">
+    <h3>Fitur Halaman Cerita</h3>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <h4>📋 Daftar Cerita</h4>
+        <ul>
+          <li>Grid artikel dengan gambar cover</li>
+          <li>Judul &amp; excerpt singkat</li>
+          <li>Nama UMKM penulis</li>
+          <li>Tanggal publish</li>
+          <li>Hanya cerita status APPROVED</li>
+        </ul>
+      </div>
+      <div class="feature-card">
+        <h4>📄 Detail Cerita</h4>
+        <ul>
+          <li>Gambar cover full-width</li>
+          <li>Judul &amp; tanggal</li>
+          <li>Nama penulis &amp; UMKM</li>
+          <li>Konten cerita lengkap</li>
+          <li>Tag/label cerita</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EVENT -->
+<div class="chapter" id="pub-event">
+  <div class="chapter-label">🌐 Halaman Publik</div>
+  <h2>Event</h2>
+  <p>Halaman event menampilkan workshop, pelatihan, dan kegiatan komunitas UMKM. Tersedia dalam format online maupun offline.</p>
+
+  <div class="screenshot">
+    <div class="screenshot-label">Daftar Event — /event</div>
+    <img src="test-report/pub-event-list.png" alt="Event">
+  </div>
+
+  <div class="screenshot">
+    <div class="screenshot-label">Detail Event — /event/[id]</div>
+    <img src="test-report/pub-event-detail.png" alt="Detail Event">
+  </div>
+
+  <div class="section">
+    <h3>Informasi Event</h3>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <h4>📋 Kartu Event</h4>
+        <ul>
+          <li>Kotak tanggal (bulan &amp; hari)</li>
+          <li>Judul event</li>
+          <li>Badge Online atau nama lokasi</li>
+          <li>Jumlah peserta terdaftar</li>
+        </ul>
+      </div>
+      <div class="feature-card">
+        <h4>📄 Detail Event</h4>
+        <ul>
+          <li>Gambar event (jika ada)</li>
+          <li>Tanggal &amp; waktu mulai</li>
+          <li>Lokasi / link meeting online</li>
+          <li>Kapasitas &amp; jumlah peserta</li>
+          <li>Deskripsi lengkap</li>
+          <li>Link meeting (jika online)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- AUTH -->
+<div class="chapter" id="pub-auth">
+  <div class="chapter-label">🌐 Halaman Publik</div>
+  <h2>Login &amp; Registrasi</h2>
+  <p>Halaman autentikasi untuk masuk atau mendaftar akun baru ke platform.</p>
+
+  <div class="screenshot">
+    <div class="screenshot-label">Halaman Login — /auth/login</div>
+    <img src="test-report/2g-login.png" alt="Login">
+  </div>
+
+  <div class="screenshot">
+    <div class="screenshot-label">Halaman Registrasi — /auth/register</div>
+    <img src="test-report/2h-register.png" alt="Register">
+  </div>
+
+  <div class="section">
+    <h3>Form Login</h3>
+    <table>
+      <tr><th>Field</th><th>Tipe</th><th>Wajib</th></tr>
+      <tr><td>Email</td><td>Email</td><td class="req">✓</td></tr>
+      <tr><td>Password</td><td>Password</td><td class="req">✓</td></tr>
+    </table>
+    <p style="font-size:13px;color:#64748b;margin-top:8px">Setelah login berhasil, pengguna diarahkan ke <code>/dashboard</code>. Akun yang di-suspend tidak dapat login.</p>
+  </div>
+
+  <div class="section">
+    <h3>Form Registrasi Akun Baru</h3>
+    <table>
+      <tr><th>Field</th><th>Tipe</th><th>Wajib</th></tr>
+      <tr><td>Nama Lengkap</td><td>Text</td><td class="req">✓</td></tr>
+      <tr><td>Email</td><td>Email</td><td class="req">✓</td></tr>
+      <tr><td>Password</td><td>Password (min. 6 karakter)</td><td class="req">✓</td></tr>
+      <tr><td>Wilayah</td><td>Dropdown</td><td class="opt">—</td></tr>
+    </table>
+    <div class="info-box note">
+      <span class="info-box-icon">ℹ️</span>
+      <span>Akun baru otomatis mendapat role <strong>VISITOR</strong>. Untuk menjadi UMKM Owner, perlu mendaftar UMKM dan menunggu approval admin.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     BAGIAN 3: VISITOR
+══════════════════════════════════════════════════════ -->
+
+<div class="chapter" id="vis-dashboard">
+  <div class="chapter-label"><span class="badge-role role-visitor">VISITOR</span> Dashboard</div>
+  <h2>Dashboard Visitor</h2>
+  <p>Dashboard sederhana untuk pengguna yang baru mendaftar, menampilkan ajakan untuk mendaftarkan UMKM.</p>
+
+  <div class="screenshot">
+    <div class="screenshot-label">Dashboard Visitor</div>
+    <img src="test-report/3a-visitor-dashboard.png" alt="Dashboard Visitor">
+  </div>
+
+  <div class="section">
+    <h3>Isi Dashboard Visitor</h3>
+    <ul class="steps">
+      <li>
+        <div><strong>Pesan selamat datang</strong><span>Menyapa pengguna dengan nama dan role mereka.</span></div>
+      </li>
+      <li>
+        <div><strong>Card "Daftarkan UMKM Anda"</strong><span>Card besar dengan tombol "Daftar Sekarang" yang mengarah ke form pendaftaran UMKM.</span></div>
+      </li>
+      <li>
+        <div><strong>Tombol Keluar</strong><span>Tombol logout di header kanan atas, mengarahkan kembali ke halaman beranda setelah logout.</span></div>
+      </li>
+    </ul>
+    <div class="info-box warn">
+      <span class="info-box-icon">⚠️</span>
+      <span>Visitor tidak memiliki akses ke fitur produk, cerita, atau promo. Menu sidebar hanya menampilkan: Dashboard, Daftar UMKM, dan Profil.</span>
+    </div>
+  </div>
+</div>
+
+<div class="chapter" id="vis-register-umkm">
+  <div class="chapter-label"><span class="badge-role role-visitor">VISITOR</span> Daftar UMKM</div>
+  <h2>Pendaftaran UMKM</h2>
+  <p>Visitor dapat mendaftarkan UMKM mereka melalui form ini. Setelah submit, UMKM akan menunggu persetujuan admin.</p>
+
+  <div class="screenshot">
+    <div class="screenshot-label">Form Pendaftaran UMKM — /dashboard/register-umkm</div>
+    <img src="test-report/vis-register-umkm.png" alt="Register UMKM">
+  </div>
+
+  <div class="section">
+    <h3>Form Pendaftaran UMKM</h3>
+    <table>
+      <tr><th>Field</th><th>Tipe</th><th>Wajib</th><th>Keterangan</th></tr>
+      <tr><td>Nama UMKM</td><td>Text</td><td class="req">✓</td><td>Nama bisnis Anda</td></tr>
+      <tr><td>Deskripsi</td><td>Textarea</td><td class="opt">—</td><td>Ceritakan tentang UMKM</td></tr>
+      <tr><td>Wilayah</td><td>Dropdown</td><td class="req">✓</td><td>Wilayah/daerah UMKM</td></tr>
+      <tr><td>Kategori</td><td>Dropdown</td><td class="opt">—</td><td>Kuliner, Fashion, Kerajinan, dll</td></tr>
+      <tr><td>Nomor WhatsApp</td><td>Text</td><td class="req">✓</td><td>Format: 6281234567890</td></tr>
+      <tr><td>No. Telepon</td><td>Text</td><td class="opt">—</td><td>Opsional</td></tr>
+      <tr><td>Website</td><td>URL</td><td class="opt">—</td><td>Opsional</td></tr>
+      <tr><td>Alamat</td><td>Textarea</td><td class="opt">—</td><td>Alamat lengkap</td></tr>
+    </table>
+  </div>
+
+  <div class="section">
+    <h3>Alur Pendaftaran</h3>
+    <ol class="steps">
+      <li><div><strong>Isi form pendaftaran</strong><span>Lengkapi minimal Nama UMKM, Wilayah, dan Nomor WhatsApp.</span></div></li>
+      <li><div><strong>Klik "Daftarkan UMKM"</strong><span>Form dikirim ke server, UMKM dibuat dengan status PENDING.</span></div></li>
+      <li><div><strong>Menunggu approval</strong><span>Notifikasi sukses ditampilkan: "Pendaftaran Berhasil! Sedang menunggu persetujuan admin."</span></div></li>
+      <li><div><strong>Admin menyetujui</strong><span>Setelah disetujui, role user otomatis berubah menjadi UMKM_OWNER dan bisa mengakses fitur pengelolaan produk.</span></div></li>
+    </ol>
+    <div class="info-box tip">
+      <span class="info-box-icon">✅</span>
+      <span>Jika user sudah menjadi UMKM Owner, halaman ini menampilkan pesan "Anda Sudah Terdaftar" dengan tombol langsung ke halaman produk.</span>
+    </div>
+  </div>
+</div>
+
+<div class="chapter" id="vis-profile">
+  <div class="chapter-label"><span class="badge-role role-visitor">VISITOR</span> Profil</div>
+  <h2>Profil Akun</h2>
+  <p>Pengguna dapat melihat dan mengedit informasi akun mereka di halaman profil.</p>
+
+  <div class="section">
+    <h3>Informasi yang Dapat Diedit</h3>
+    <table>
+      <tr><th>Field</th><th>Tipe</th><th>Keterangan</th></tr>
+      <tr><td>Nama</td><td>Text</td><td>Nama lengkap akun</td></tr>
+      <tr><td>Email</td><td>Email (read-only)</td><td>Tidak dapat diubah</td></tr>
+      <tr><td>Wilayah</td><td>Dropdown</td><td>Wilayah domisili</td></tr>
+      <tr><td>Password Baru</td><td>Password</td><td>Kosongkan jika tidak ingin mengubah</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     BAGIAN 4: UMKM OWNER
+══════════════════════════════════════════════════════ -->
+
+<div class="chapter" id="own-dashboard">
+  <div class="chapter-label"><span class="badge-role role-owner">UMKM OWNER</span> Dashboard</div>
+  <h2>Dashboard UMKM Owner</h2>
+  <p>Dashboard owner menampilkan ringkasan bisnis: jumlah produk, cerita, dan pesanan WhatsApp, serta aksi cepat.</p>
+
+  <div class="screenshot">
+    <div class="screenshot-label">Dashboard UMKM Owner</div>
+    <img src="test-report/4a-owner-dashboard.png" alt="Dashboard Owner">
+  </div>
+
+  <div class="section">
+    <h3>Isi Dashboard Owner</h3>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <h4>📊 Statistik Bisnis</h4>
+        <ul>
+          <li>Jumlah produk (klik → halaman produk)</li>
+          <li>Jumlah cerita (klik → halaman cerita)</li>
+          <li>Jumlah pesanan WA (klik → WA orders)</li>
+        </ul>
+      </div>
+      <div class="feature-card">
+        <h4>⚡ Aksi Cepat</h4>
+        <ul>
+          <li>Tombol "+ Tambah Produk" → /products/new</li>
+          <li>Tombol "+ Tulis Cerita" → /cerita/new</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="chapter" id="own-products">
+  <div class="chapter-label"><span class="badge-role role-owner">UMKM OWNER</span> Produk</div>
+  <h2>Manajemen Produk</h2>
+  <p>Owner dapat menambah dan melihat semua produk milik UMKM-nya. Setiap produk baru membutuhkan persetujuan admin sebelum tampil di katalog publik.</p>
+
+  <div class="screenshot">
+    <div class="screenshot-label">Daftar Produk — /dashboard/products</div>
+    <img src="test-report/4b-owner-products.png" alt="Produk Owner">
+  </div>
+
+  <div class="screenshot">
+    <div class="screenshot-label">Form Tambah Produk Baru — /dashboard/products/new</div>
+    <img src="test-report/4c-owner-new-product.png" alt="Tambah Produk">
+  </div>
+
+  <div class="section">
+    <h3>Daftar Produk</h3>
+    <p>Menampilkan semua produk milik UMKM owner yang sedang login, beserta status approval masing-masing.</p>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <h4>📦 Informasi Produk</h4>
+        <ul>
+          <li>Foto produk (thumbnail)</li>
+          <li>Nama produk</li>
+          <li>Harga dalam Rupiah</li>
+          <li>Kategori (badge)</li>
+        </ul>
+      </div>
+      <div class="feature-card">
+        <h4>🏷️ Status Badge</h4>
+        <ul>
+          <li><strong>PENDING</strong> — Menunggu approval admin</li>
+          <li><strong>APPROVED</strong> — Tampil di katalog publik</li>
+          <li><strong>REJECTED</strong> — Ditolak admin</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>Form Tambah Produk Baru</h3>
+    <table>
+      <tr><th>Field</th><th>Tipe</th><th>Wajib</th><th>Keterangan</th></tr>
+      <tr><td>Nama Produk</td><td>Text</td><td class="req">✓</td><td>Contoh: Rendang Daging Sapi 500g</td></tr>
+      <tr><td>Deskripsi</td><td>Textarea</td><td class="opt">—</td><td>Detail produk</td></tr>
+      <tr><td>Harga (Rp)</td><td>Number</td><td class="opt">—</td><td>Harga dalam Rupiah</td></tr>
+      <tr><td>Kategori</td><td>Dropdown</td><td class="opt">—</td><td>Pilih dari kategori yang ada</td></tr>
+      <tr><td>Foto Produk</td><td>File Upload</td><td class="opt">—</td><td>Maks. 3 foto, 5MB/foto, JPG/PNG/WebP</td></tr>
+    </table>
+    <div class="info-box note">
+      <span class="info-box-icon">📸</span>
+      <span>Dapat mengupload hingga <strong>3 foto produk</strong>. Setiap foto ditampilkan dalam grid preview dengan tombol hapus (X) per foto.</span>
+    </div>
+    <div class="info-box tip">
+      <span class="info-box-icon">✅</span>
+      <span>Setelah submit berhasil, muncul halaman sukses: "Produk Berhasil Ditambahkan! Sedang menunggu persetujuan admin."</span>
+    </div>
+  </div>
+</div>
+
+<div class="chapter" id="own-cerita">
+  <div class="chapter-label"><span class="badge-role role-owner">UMKM OWNER</span> Cerita</div>
+  <h2>Penulisan Cerita</h2>
+  <p>Owner dapat menulis dan mempublikasikan cerita inspiratif tentang perjalanan UMKM-nya. Cerita perlu disetujui admin sebelum tampil di halaman publik.</p>
+
+  <div class="screenshot">
+    <div class="screenshot-label">Daftar Cerita — /dashboard/cerita</div>
+    <img src="test-report/own-cerita-list.png" alt="Cerita Owner">
+  </div>
+
+  <div class="screenshot">
+    <div class="screenshot-label">Form Tulis Cerita Baru — /dashboard/cerita/new</div>
+    <img src="test-report/4d-owner-cerita-new.png" alt="Tulis Cerita">
+  </div>
+
+  <div class="section">
+    <h3>Form Tulis Cerita</h3>
+    <table>
+      <tr><th>Field</th><th>Tipe</th><th>Wajib</th><th>Keterangan</th></tr>
+      <tr><td>Gambar Cover</td><td>File Upload</td><td class="opt">—</td><td>JPG/PNG/WebP, maks. 5MB</td></tr>
+      <tr><td>Judul Cerita</td><td>Text</td><td class="req">✓</td><td>Judul menarik untuk cerita</td></tr>
+      <tr><td>Konten Cerita</td><td>Textarea (rich)</td><td class="req">✓</td><td>Isi utama cerita</td></tr>
+      <tr><td>Ringkasan</td><td>Textarea</td><td class="opt">—</td><td>Ditampilkan di halaman daftar</td></tr>
+      <tr><td>Tags</td><td>Text (pisah koma)</td><td class="opt">—</td><td>Contoh: kuliner, sukses, inspirasi</td></tr>
+    </table>
+    <div class="info-box note">
+      <span class="info-box-icon">✏️</span>
+      <span>Textarea konten memiliki toolbar formatting: <strong>Bold</strong>, <em>Italic</em>, Heading (##), dan List (-).</span>
+    </div>
+  </div>
+</div>
+
+<div class="chapter" id="own-promos">
+  <div class="chapter-label"><span class="badge-role role-owner">UMKM OWNER</span> Promo Slider</div>
+  <h2>Pengajuan Promo</h2>
+  <p>Owner dapat mengajukan banner promosi untuk ditampilkan di promo slider halaman beranda. Setiap promo perlu disetujui admin terlebih dahulu.</p>
+
+  <div class="screenshot">
+    <div class="screenshot-label">Halaman Promo — /dashboard/promos</div>
+    <img src="test-report/own-promos.png" alt="Promo Owner">
+  </div>
+
+  <div class="section">
+    <h3>Form Tambah Promo</h3>
+    <p>Klik tombol <strong>"+ Tambah Promo"</strong> untuk menampilkan form:</p>
+    <table>
+      <tr><th>Field</th><th>Tipe</th><th>Wajib</th><th>Keterangan</th></tr>
+      <tr><td>Judul Promo</td><td>Text</td><td class="req">✓</td><td>Contoh: Diskon 50% Produk Pilihan</td></tr>
+      <tr><td>Deskripsi</td><td>Text</td><td class="opt">—</td><td>Keterangan singkat promo</td></tr>
+      <tr><td>Gambar Banner</td><td>File Upload</td><td class="opt">—</td><td>JPG/PNG/WebP, maks. 5MB</td></tr>
+      <tr><td>URL Gambar</td><td>Text (URL)</td><td class="opt">—</td><td>Alternatif: input URL langsung</td></tr>
+      <tr><td>Link Tujuan</td><td>Text</td><td class="opt">—</td><td>Contoh: /katalog atau https://...</td></tr>
+    </table>
+  </div>
+
+  <div class="section">
+    <h3>Status &amp; Tindakan Promo</h3>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <h4>🏷️ Badge Status</h4>
+        <ul>
+          <li><strong>PENDING</strong> — Menunggu approval admin</li>
+          <li><strong>APPROVED</strong> — Disetujui</li>
+          <li><strong>REJECTED</strong> — Ditolak admin</li>
+          <li>Badge <strong>Aktif/Nonaktif</strong> (jika sudah approved)</li>
+        </ul>
+      </div>
+      <div class="feature-card">
+        <h4>⚡ Tombol Tindakan (Owner)</h4>
+        <ul>
+          <li>Owner hanya melihat status promo-nya</li>
+          <li>Tidak ada tombol approve/reject untuk owner</li>
+          <li>Admin yang mengatur aktif/nonaktif</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="chapter" id="own-wa">
+  <div class="chapter-label"><span class="badge-role role-owner">UMKM OWNER</span> WhatsApp Orders</div>
+  <h2>Riwayat Pesanan WhatsApp</h2>
+  <p>Mencatat setiap kali tombol "Pesan via WA" diklik oleh pengunjung untuk produk milik UMKM ini.</p>
+
+  <div class="screenshot">
+    <div class="screenshot-label">WhatsApp Orders — /dashboard/whatsapp-orders</div>
+    <img src="test-report/own-wa-orders.png" alt="WA Orders">
+  </div>
+
+  <div class="section">
+    <h3>Data yang Ditampilkan</h3>
+    <table>
+      <tr><th>Kolom</th><th>Keterangan</th></tr>
+      <tr><td>Produk</td><td>Nama produk yang dipesan</td></tr>
+      <tr><td>UMKM</td><td>Nama UMKM pemilik produk</td></tr>
+      <tr><td>Pembeli</td><td>Nama pembeli (jika tercatat)</td></tr>
+      <tr><td>Waktu</td><td>Tanggal dan jam klik WA</td></tr>
+    </table>
+    <div class="info-box note">
+      <span class="info-box-icon">ℹ️</span>
+      <span>Log ini bersifat read-only. Dicatat otomatis saat pengunjung mengklik tombol "Pesan via WA" di halaman katalog.</span>
+    </div>
+  </div>
+</div>
+
+<div class="chapter" id="own-profile">
+  <div class="chapter-label"><span class="badge-role role-owner">UMKM OWNER</span> Profil &amp; UMKM</div>
+  <h2>Profil &amp; Informasi UMKM</h2>
+  <p>Owner dapat melihat dan mengedit profil akun beserta informasi UMKM yang terdaftar.</p>
+
+  <div class="screenshot">
+    <div class="screenshot-label">Profil Owner — /dashboard/profile</div>
+    <img src="test-report/4e-owner-profile.png" alt="Profil Owner">
+  </div>
+
+  <div class="section">
+    <h3>Informasi yang Ditampilkan</h3>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <h4>👤 Data Akun</h4>
+        <ul>
+          <li>Nama lengkap</li>
+          <li>Email (read-only)</li>
+          <li>Role saat ini</li>
+          <li>Wilayah</li>
+          <li>Tanggal bergabung</li>
+        </ul>
+      </div>
+      <div class="feature-card">
+        <h4>🏪 Data UMKM</h4>
+        <ul>
+          <li>Nama UMKM</li>
+          <li>Status UMKM (badge)</li>
+          <li>Kategori &amp; wilayah</li>
+          <li>Nomor WhatsApp</li>
+          <li>Jumlah produk terdaftar</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     BAGIAN 5: ADMIN
+══════════════════════════════════════════════════════ -->
+
+<div class="chapter" id="adm-dashboard">
+  <div class="chapter-label"><span class="badge-role role-admin">ADMIN</span> Dashboard</div>
+  <h2>Dashboard Admin</h2>
+  <p>Dashboard admin menampilkan statistik sistem dan daftar item yang menunggu persetujuan.</p>
+
+  <div class="screenshot">
+    <div class="screenshot-label">Dashboard Admin</div>
+    <img src="test-report/5a-admin-dashboard.png" alt="Dashboard Admin">
+  </div>
+
+  <div class="section">
+    <h3>Komponen Dashboard Admin</h3>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <h4>📊 4 Stat Cards</h4>
+        <ul>
+          <li>Total User (jumlah semua pengguna)</li>
+          <li>UMKM Aktif (status APPROVED)</li>
+          <li>Produk (total produk)</li>
+          <li>Order WA (total pesanan WhatsApp)</li>
+        </ul>
+      </div>
+      <div class="feature-card">
+        <h4>⏳ Pending Approvals</h4>
+        <ul>
+          <li>UMKM menunggu approval → link ke /umkm</li>
+          <li>Produk menunggu approval → link ke /products</li>
+          <li>Cerita menunggu approval → link ke /cerita</li>
+          <li>Event menunggu approval → link ke /event</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="chapter" id="adm-umkm">
+  <div class="chapter-label"><span class="badge-role role-admin">ADMIN</span> Data UMKM</div>
+  <h2>Manajemen UMKM</h2>
+  <p>Admin dapat melihat semua UMKM terdaftar, memeriksa detail, dan melakukan approval atau penolakan.</p>
+
+  <div class="screenshot">
+    <div class="screenshot-label">Data UMKM — /dashboard/umkm</div>
+    <img src="test-report/adm-umkm-list.png" alt="UMKM Admin">
+  </div>
+
+  <div class="screenshot">
+    <div class="screenshot-label">Panel Detail UMKM (saat klik "Lihat")</div>
+    <img src="test-report/5b-admin-umkm-detail.png" alt="Detail UMKM Admin">
+  </div>
+
+  <div class="section">
+    <h3>Fitur Manajemen UMKM</h3>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <h4>🔍 Filter Status</h4>
+        <ul>
+          <li>Badge filter: Semua, PENDING, APPROVED, REJECTED</li>
+          <li>Tabel menampilkan nama, owner, wilayah, status</li>
+          <li>Tombol "Lihat" (ikon mata) buka panel detail</li>
+        </ul>
+      </div>
+      <div class="feature-card">
+        <h4>📋 Panel Detail UMKM</h4>
+        <ul>
+          <li>Nama UMKM + status badge</li>
+          <li>Info owner (nama, email)</li>
+          <li>Wilayah, kategori, kontak</li>
+          <li>Jumlah produk &amp; tanggal daftar</li>
+          <li>Deskripsi UMKM</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>Alur Approval UMKM</h3>
+    <ol class="steps">
+      <li><div><strong>Filter ke "PENDING"</strong><span>Klik badge filter PENDING untuk melihat UMKM yang menunggu review.</span></div></li>
+      <li><div><strong>Klik ikon mata "Lihat"</strong><span>Panel detail UMKM muncul di sisi kanan dengan semua informasi.</span></div></li>
+      <li><div><strong>Review informasi UMKM</strong><span>Periksa nama, pemilik, kontak, alamat, dan deskripsi.</span></div></li>
+      <li><div><strong>Klik "Setujui" atau "Tolak"</strong><span>Setujui → status berubah APPROVED, role owner berubah ke UMKM_OWNER. Tolak → status REJECTED.</span></div></li>
+    </ol>
+    <div class="info-box tip">
+      <span class="info-box-icon">✅</span>
+      <span>Saat UMKM disetujui, role pengguna pemilik UMKM otomatis berubah dari VISITOR menjadi UMKM_OWNER, dan User.umkmId diisi secara otomatis.</span>
+    </div>
+  </div>
+</div>
+
+<div class="chapter" id="adm-products">
+  <div class="chapter-label"><span class="badge-role role-admin">ADMIN</span> Produk</div>
+  <h2>Approval Produk</h2>
+  <p>Admin mereview semua produk dari seluruh UMKM dan memutuskan mana yang layak tampil di katalog publik.</p>
+
+  <div class="screenshot">
+    <div class="screenshot-label">Manajemen Produk — /dashboard/products</div>
+    <img src="test-report/5c-admin-products.png" alt="Produk Admin">
+  </div>
+
+  <div class="section">
+    <h3>Fitur Approval Produk</h3>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <h4>🔍 Filter &amp; Tampilan</h4>
+        <ul>
+          <li>Filter: Semua, PENDING, APPROVED, REJECTED</li>
+          <li>Thumbnail foto produk</li>
+          <li>Nama, harga, kategori, nama UMKM</li>
+          <li>Status badge per produk</li>
+        </ul>
+      </div>
+      <div class="feature-card">
+        <h4>✅ Tombol Approval</h4>
+        <ul>
+          <li>Ikon centang hijau → Setujui (APPROVED)</li>
+          <li>Ikon silang merah → Tolak (REJECTED)</li>
+          <li>Hanya muncul untuk produk PENDING</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="chapter" id="adm-cerita">
+  <div class="chapter-label"><span class="badge-role role-admin">ADMIN</span> Cerita</div>
+  <h2>Moderasi Cerita</h2>
+  <p>Admin mereview semua cerita yang ditulis oleh UMKM Owner dan memilih mana yang layak dipublikasikan.</p>
+
+  <div class="screenshot">
+    <div class="screenshot-label">Moderasi Cerita — /dashboard/cerita</div>
+    <img src="test-report/adm-cerita.png" alt="Cerita Admin">
+  </div>
+
+  <div class="section">
+    <h3>Fitur Moderasi Cerita</h3>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <h4>📋 Daftar Cerita</h4>
+        <ul>
+          <li>Filter status: Semua, PENDING, APPROVED, REJECTED</li>
+          <li>Gambar cover, judul, excerpt</li>
+          <li>Nama penulis &amp; UMKM</li>
+          <li>Tanggal dibuat &amp; status</li>
+        </ul>
+      </div>
+      <div class="feature-card">
+        <h4>✅ Tindakan Admin</h4>
+        <ul>
+          <li>Approve → cerita tampil di halaman publik</li>
+          <li>Reject → cerita tidak tampil</li>
+          <li>Tombol approve/reject hanya muncul untuk PENDING</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="chapter" id="adm-event">
+  <div class="chapter-label"><span class="badge-role role-admin">ADMIN</span> Event</div>
+  <h2>Manajemen Event</h2>
+  <p>Admin mengelola semua event dan dapat menyetujui atau menolak event yang diajukan.</p>
+
+  <div class="screenshot">
+    <div class="screenshot-label">Manajemen Event — /dashboard/event</div>
+    <img src="test-report/adm-event.png" alt="Event Admin">
+  </div>
+
+  <div class="section">
+    <h3>Fitur Manajemen Event</h3>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <h4>📅 Tabel Event</h4>
+        <ul>
+          <li>Judul event</li>
+          <li>Tanggal mulai</li>
+          <li>Lokasi (Online/Offline)</li>
+          <li>Status badge</li>
+          <li>Tombol "Lihat" detail</li>
+        </ul>
+      </div>
+      <div class="feature-card">
+        <h4>📋 Panel Detail Event</h4>
+        <ul>
+          <li>Gambar event (jika ada)</li>
+          <li>Tanggal, lokasi, peserta</li>
+          <li>Deskripsi lengkap</li>
+          <li>Tombol Approve/Reject (untuk PENDING)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="chapter" id="adm-promos">
+  <div class="chapter-label"><span class="badge-role role-admin">ADMIN</span> Promo</div>
+  <h2>Manajemen Promo Slider</h2>
+  <p>Admin mengelola semua promo yang diajukan UMKM Owner dan mengatur mana yang aktif di slider beranda.</p>
+
+  <div class="screenshot">
+    <div class="screenshot-label">Manajemen Promo — /dashboard/promos</div>
+    <img src="test-report/adm-promos.png" alt="Promo Admin">
+  </div>
+
+  <div class="section">
+    <h3>Fitur Manajemen Promo</h3>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <h4>🏷️ Informasi Promo</h4>
+        <ul>
+          <li>Thumbnail gambar banner</li>
+          <li>Judul &amp; deskripsi</li>
+          <li>Status badge (PENDING/APPROVED/REJECTED)</li>
+          <li>Badge Aktif/Nonaktif (jika approved)</li>
+          <li>Nama UMKM pengaju</li>
+        </ul>
+      </div>
+      <div class="feature-card">
+        <h4>⚡ Tindakan Admin</h4>
+        <ul>
+          <li>Ikon ✓ (hijau) → Setujui promo</li>
+          <li>Ikon ✗ (merah) → Tolak promo</li>
+          <li>Tombol "Aktifkan" / "Nonaktifkan" untuk promo approved</li>
+        </ul>
+      </div>
+    </div>
+    <div class="info-box tip">
+      <span class="info-box-icon">🎠</span>
+      <span>Promo yang sudah <strong>APPROVED</strong> dan berstatus <strong>Aktif</strong> akan otomatis tampil di promo slider halaman beranda.</span>
+    </div>
+  </div>
+</div>
+
+<div class="chapter" id="adm-reports">
+  <div class="chapter-label"><span class="badge-role role-admin">ADMIN</span> Laporan</div>
+  <h2>Laporan Statistik</h2>
+  <p>Halaman laporan menampilkan ringkasan statistik platform secara keseluruhan.</p>
+
+  <div class="screenshot">
+    <div class="screenshot-label">Laporan — /dashboard/reports</div>
+    <img src="test-report/5d-admin-reports.png" alt="Reports Admin">
+  </div>
+
+  <div class="section">
+    <h3>Metrik yang Ditampilkan</h3>
+    <table>
+      <tr><th>Metrik</th><th>Keterangan</th></tr>
+      <tr><td>Total Users</td><td>Jumlah semua pengguna terdaftar</td></tr>
+      <tr><td>UMKM Aktif</td><td>Jumlah UMKM dengan status APPROVED</td></tr>
+      <tr><td>Produk</td><td>Total produk di seluruh UMKM</td></tr>
+      <tr><td>Order WA</td><td>Total log klik "Pesan via WA"</td></tr>
+    </table>
+    <div class="info-box note">
+      <span class="info-box-icon">📈</span>
+      <span>Halaman laporan bersifat read-only. Semua data diambil langsung dari database secara real-time setiap kali halaman dibuka.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     BAGIAN 6: SUPERADMIN
+══════════════════════════════════════════════════════ -->
+
+<div class="chapter" id="sa-users">
+  <div class="chapter-label"><span class="badge-role role-superadmin">SUPERADMIN</span> User Management</div>
+  <h2>Manajemen Pengguna</h2>
+  <p>Superadmin dapat melihat semua pengguna, mengubah role mereka, dan menangguhkan atau mengaktifkan akun.</p>
+
+  <div class="screenshot">
+    <div class="screenshot-label">User Management — /dashboard/users</div>
+    <img src="test-report/sa-users.png" alt="User Management">
+  </div>
+
+  <div class="section">
+    <h3>Tindakan di User Management</h3>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <h4>👤 Data Pengguna</h4>
+        <ul>
+          <li>Nama lengkap</li>
+          <li>Alamat email</li>
+          <li>Role saat ini (dropdown)</li>
+          <li>Status akun (ACTIVE / SUSPENDED)</li>
+        </ul>
+      </div>
+      <div class="feature-card">
+        <h4>⚡ Tindakan Superadmin</h4>
+        <ul>
+          <li>Ubah role via dropdown (VISITOR / UMKM_OWNER / ADMIN / SUPERADMIN)</li>
+          <li>Tombol "Suspend" → menangguhkan akun</li>
+          <li>Tombol "Aktifkan" → mengaktifkan kembali</li>
+        </ul>
+      </div>
+    </div>
+    <div class="info-box warn">
+      <span class="info-box-icon">⚠️</span>
+      <span>Akun yang di-suspend tidak dapat login ke platform sampai diaktifkan kembali oleh Superadmin.</span>
+    </div>
+  </div>
+</div>
+
+<div class="chapter" id="sa-apps">
+  <div class="chapter-label"><span class="badge-role role-superadmin">SUPERADMIN</span> Apps Management</div>
+  <h2>Manajemen Aplikasi</h2>
+  <p>Superadmin dapat mendaftarkan dan mengelola aplikasi pihak ketiga yang terintegrasi dengan platform melalui SSO/API.</p>
+
+  <div class="screenshot">
+    <div class="screenshot-label">Apps Management — /dashboard/apps</div>
+    <img src="test-report/sa-apps.png" alt="Apps Management">
+  </div>
+
+  <div class="section">
+    <h3>Form Tambah Aplikasi</h3>
+    <p>Klik tombol <strong>"+ Tambah App"</strong> untuk menampilkan form:</p>
+    <table>
+      <tr><th>Field</th><th>Tipe</th><th>Wajib</th><th>Keterangan</th></tr>
+      <tr><td>Nama Aplikasi</td><td>Text</td><td class="req">✓</td><td>Nama identifikasi aplikasi</td></tr>
+      <tr><td>URL</td><td>URL</td><td class="req">✓</td><td>URL callback aplikasi</td></tr>
+      <tr><td>Deskripsi</td><td>Text</td><td class="opt">—</td><td>Keterangan singkat aplikasi</td></tr>
+    </table>
+  </div>
+
+  <div class="section">
+    <h3>Tindakan Per Aplikasi</h3>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <h4>📋 Informasi App</h4>
+        <ul>
+          <li>Nama aplikasi</li>
+          <li>Deskripsi (jika ada)</li>
+          <li>URL aplikasi</li>
+          <li>Status badge (Aktif / Nonaktif)</li>
+        </ul>
+      </div>
+      <div class="feature-card">
+        <h4>⚡ Tombol Tindakan</h4>
+        <ul>
+          <li>Power icon → Toggle aktif/nonaktif</li>
+          <li>External link icon → Buka URL aplikasi</li>
+          <li>Trash icon (merah) → Hapus aplikasi</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="chapter" id="sa-homepage">
+  <div class="chapter-label"><span class="badge-role role-superadmin">SUPERADMIN</span> Homepage Content</div>
+  <h2>Konten Halaman Beranda</h2>
+  <p>Superadmin dapat mengedit konten setiap section di halaman beranda melalui antarmuka ini.</p>
+
+  <div class="screenshot">
+    <div class="screenshot-label">Homepage Content — /dashboard/homepage-content</div>
+    <img src="test-report/sa-homepage-content.png" alt="Homepage Content">
+  </div>
+
+  <div class="section">
+    <h3>Informasi Situs (Read-only)</h3>
+    <p>Bagian atas menampilkan informasi situs yang diambil dari file konfigurasi:</p>
+    <table>
+      <tr><th>Field</th><th>Nilai Default</th></tr>
+      <tr><td>Nama Situs</td><td>UMKM Digital 2</td></tr>
+      <tr><td>Deskripsi</td><td>Platform ekosistem digital modern untuk UMKM Indonesia</td></tr>
+      <tr><td>Email Kontak</td><td>info@umkm2.id</td></tr>
+      <tr><td>WhatsApp</td><td>628123456789</td></tr>
+    </table>
+    <div class="info-box note">
+      <span class="info-box-icon">ℹ️</span>
+      <span>Untuk mengubah informasi situs, edit file <code>src/config/site.config.ts</code> secara langsung.</span>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>Edit Section Beranda</h3>
+    <p>Setiap section halaman beranda (HERO, FEATURES, dll) dapat diedit melalui form:</p>
+    <ul class="steps">
+      <li><div><strong>Pilih section</strong><span>Setiap section tampil sebagai card dengan key badge (HERO, FEATURES, dst).</span></div></li>
+      <li><div><strong>Edit judul</strong><span>Field input untuk judul section.</span></div></li>
+      <li><div><strong>Edit konten</strong><span>Textarea untuk konten section dalam format JSON.</span></div></li>
+      <li><div><strong>Klik "Simpan"</strong><span>Perubahan disimpan ke database. Muncul pesan "Tersimpan ✓".</span></div></li>
+    </ul>
+  </div>
+</div>
+
+<div class="chapter" id="sa-settings">
+  <div class="chapter-label"><span class="badge-role role-superadmin">SUPERADMIN</span> Settings</div>
+  <h2>Pengaturan Situs</h2>
+  <p>Halaman Settings menampilkan konfigurasi situs dan status feature flags yang aktif.</p>
+
+  <div class="screenshot">
+    <div class="screenshot-label">Settings — /dashboard/settings</div>
+    <img src="test-report/6c-sa-settings.png" alt="Settings">
+  </div>
+
+  <div class="section">
+    <h3>Konfigurasi Situs (Read-only)</h3>
+    <p>Menampilkan nilai konfigurasi dari <code>site.config.ts</code>:</p>
+    <table>
+      <tr><th>Item</th><th>Keterangan</th></tr>
+      <tr><td>Nama Situs</td><td>Nama platform</td></tr>
+      <tr><td>Email</td><td>Email kontak admin</td></tr>
+      <tr><td>WhatsApp</td><td>Nomor WA admin</td></tr>
+    </table>
+  </div>
+
+  <div class="section">
+    <h3>Feature Flags</h3>
+    <p>Menampilkan semua feature flags yang dikonfigurasi di <code>features.config.ts</code>:</p>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <h4>✅ Status ON/OFF</h4>
+        <ul>
+          <li>Setiap feature flag ditampilkan sebagai baris</li>
+          <li>Badge hijau "ON" jika aktif</li>
+          <li>Badge abu "OFF" jika nonaktif</li>
+          <li>Nama feature dalam format readable</li>
+        </ul>
+      </div>
+      <div class="feature-card">
+        <h4>⚙️ Cara Mengubah</h4>
+        <ul>
+          <li>Edit file <code>src/config/features.config.ts</code></li>
+          <li>Set <code>true</code> atau <code>false</code> untuk tiap flag</li>
+          <li>Restart server untuk menerapkan perubahan</li>
+        </ul>
+      </div>
+    </div>
+    <div class="info-box note">
+      <span class="info-box-icon">ℹ️</span>
+      <span>Settings bersifat read-only di UI. Perubahan konfigurasi dilakukan langsung di file <code>src/config/</code>.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════ APPENDIX ══════════════════════ -->
+<div class="chapter" id="appendix">
+  <div class="chapter-label">📎 Lampiran</div>
+  <h2>Ringkasan Fitur per Role</h2>
+  <p>Tabel referensi cepat fitur dan akses untuk setiap role.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Fitur / Halaman</th>
+        <th style="text-align:center">Publik</th>
+        <th style="text-align:center">Visitor</th>
+        <th style="text-align:center">Owner</th>
+        <th style="text-align:center">Admin</th>
+        <th style="text-align:center">Superadmin</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Beranda</td><td style="text-align:center">✅</td><td style="text-align:center">✅</td><td style="text-align:center">✅</td><td style="text-align:center">✅</td><td style="text-align:center">✅</td></tr>
+      <tr><td>Katalog Produk</td><td style="text-align:center">✅</td><td style="text-align:center">✅</td><td style="text-align:center">✅</td><td style="text-align:center">✅</td><td style="text-align:center">✅</td></tr>
+      <tr><td>Detail UMKM</td><td style="text-align:center">✅</td><td style="text-align:center">✅</td><td style="text-align:center">✅</td><td style="text-align:center">✅</td><td style="text-align:center">✅</td></tr>
+      <tr><td>Cerita UMKM</td><td style="text-align:center">✅</td><td style="text-align:center">✅</td><td style="text-align:center">✅</td><td style="text-align:center">✅</td><td style="text-align:center">✅</td></tr>
+      <tr><td>Event</td><td style="text-align:center">✅</td><td style="text-align:center">✅</td><td style="text-align:center">✅</td><td style="text-align:center">✅</td><td style="text-align:center">✅</td></tr>
+      <tr><td>Login / Register</td><td style="text-align:center">✅</td><td style="text-align:center">✅</td><td style="text-align:center">✅</td><td style="text-align:center">✅</td><td style="text-align:center">✅</td></tr>
+      <tr><td>Dashboard</td><td style="text-align:center">—</td><td style="text-align:center">✅</td><td style="text-align:center">✅</td><td style="text-align:center">✅</td><td style="text-align:center">✅</td></tr>
+      <tr><td>Daftar UMKM</td><td style="text-align:center">—</td><td style="text-align:center">✅</td><td style="text-align:center">—</td><td style="text-align:center">—</td><td style="text-align:center">—</td></tr>
+      <tr><td>Kelola Produk</td><td style="text-align:center">—</td><td style="text-align:center">—</td><td style="text-align:center">✅</td><td style="text-align:center">—</td><td style="text-align:center">—</td></tr>
+      <tr><td>Tulis Cerita</td><td style="text-align:center">—</td><td style="text-align:center">—</td><td style="text-align:center">✅</td><td style="text-align:center">—</td><td style="text-align:center">—</td></tr>
+      <tr><td>Ajukan Promo</td><td style="text-align:center">—</td><td style="text-align:center">—</td><td style="text-align:center">✅</td><td style="text-align:center">—</td><td style="text-align:center">—</td></tr>
+      <tr><td>WA Orders (sendiri)</td><td style="text-align:center">—</td><td style="text-align:center">—</td><td style="text-align:center">✅</td><td style="text-align:center">—</td><td style="text-align:center">—</td></tr>
+      <tr><td>Approval UMKM</td><td style="text-align:center">—</td><td style="text-align:center">—</td><td style="text-align:center">—</td><td style="text-align:center">✅</td><td style="text-align:center">✅</td></tr>
+      <tr><td>Approval Produk</td><td style="text-align:center">—</td><td style="text-align:center">—</td><td style="text-align:center">—</td><td style="text-align:center">✅</td><td style="text-align:center">✅</td></tr>
+      <tr><td>Approval Cerita</td><td style="text-align:center">—</td><td style="text-align:center">—</td><td style="text-align:center">—</td><td style="text-align:center">✅</td><td style="text-align:center">✅</td></tr>
+      <tr><td>Approval Event</td><td style="text-align:center">—</td><td style="text-align:center">—</td><td style="text-align:center">—</td><td style="text-align:center">✅</td><td style="text-align:center">✅</td></tr>
+      <tr><td>Kelola Promo</td><td style="text-align:center">—</td><td style="text-align:center">—</td><td style="text-align:center">—</td><td style="text-align:center">✅</td><td style="text-align:center">✅</td></tr>
+      <tr><td>Laporan Statistik</td><td style="text-align:center">—</td><td style="text-align:center">—</td><td style="text-align:center">—</td><td style="text-align:center">✅</td><td style="text-align:center">✅</td></tr>
+      <tr><td>WA Orders (semua)</td><td style="text-align:center">—</td><td style="text-align:center">—</td><td style="text-align:center">—</td><td style="text-align:center">✅</td><td style="text-align:center">✅</td></tr>
+      <tr><td>User Management</td><td style="text-align:center">—</td><td style="text-align:center">—</td><td style="text-align:center">—</td><td style="text-align:center">—</td><td style="text-align:center">✅</td></tr>
+      <tr><td>Apps Management</td><td style="text-align:center">—</td><td style="text-align:center">—</td><td style="text-align:center">—</td><td style="text-align:center">—</td><td style="text-align:center">✅</td></tr>
+      <tr><td>Homepage Content</td><td style="text-align:center">—</td><td style="text-align:center">—</td><td style="text-align:center">—</td><td style="text-align:center">—</td><td style="text-align:center">✅</td></tr>
+      <tr><td>Settings</td><td style="text-align:center">—</td><td style="text-align:center">—</td><td style="text-align:center">—</td><td style="text-align:center">—</td><td style="text-align:center">✅</td></tr>
+    </tbody>
+  </table>
+</div>
+
+</div><!-- /content -->
+</main>
+
+<script>
+// Highlight active TOC link on scroll
+const links = document.querySelectorAll('.toc-link');
+const sections = Array.from(document.querySelectorAll('[id]'));
+window.addEventListener('scroll', () => {
+  const y = window.scrollY + 80;
+  let current = '';
+  sections.forEach(s => { if (s.offsetTop <= y) current = s.id; });
+  links.forEach(l => {
+    l.classList.toggle('active', l.getAttribute('href') === '#' + current);
+  });
+}, { passive: true });
+</script>
+</body>
+</html>
